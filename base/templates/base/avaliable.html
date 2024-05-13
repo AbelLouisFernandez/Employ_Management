@@ -1,6 +1,10 @@
 {% extends 'main.html' %}
 {% block content %}
-    <h2>avaliable employees</h2>
+    {% if page == 'avaliable' %}
+    <h2>Avaliable Employees</h2>
+    {% elif page == 'allemployees' %}
+    <h2>All Employees</h2>
+    {% endif %}
     {% for employee in employees %}
     <h2>{{ employee.name }}</h2>
     <p>Availability: {{ employee.availability }}</p>

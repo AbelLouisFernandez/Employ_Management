@@ -10,3 +10,8 @@ class workform(ModelForm):
      widgets = {
             'deadline': forms.DateInput(attrs={'type': 'date', 'min': (now() + timedelta(days=1)).strftime('%Y-%m-%d')})
         }
+     
+class PresenceForm(forms.Form):
+    is_present = forms.BooleanField(label='I am present', required=False)
+    is_absent = forms.BooleanField(label='I am absent', required=False)
+

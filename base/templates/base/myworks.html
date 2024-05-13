@@ -1,0 +1,10 @@
+{% extends 'main.html' %}
+{% block content %}
+<h3>My works</h3>
+{% for work in works %}
+<div>
+    <h4><a href="{% url 'viewspecificwork' work.pk %}">{{ work.name }}</a></h4>
+    <h4>Deadline Date:{{work.deadline}}</h4>
+</div>
+{% endfor %}
+{% endblock content %}

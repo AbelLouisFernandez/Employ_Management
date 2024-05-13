@@ -8,7 +8,25 @@
        <h4>Deadline Date:{{work.deadline}}</h4>
    </div>
    {% endfor %}
-
+   {% elif page == 'specificwork' %}
+      <h4>Title:{{work.name}}</h4>
+      <h4>Description:{{work.description}}</h4>
+      <p>Skills:</p>
+      <ul>
+          {% for skill in work.skills_needed.all %}
+              <li>{{ skill.name }}</li>
+          {% endfor %}
+      </ul>
+      <p>Deadline:{{work.deadline}}</p>
+      {% if work.employee.name == request.user.username %}
+      <form method="post" action="{% url 'mark_work_completed' %}">
+          {% csrf_token %}
+          <input type="hidden" name="work_id" value="{{ work.id }}">
+          <input type="checkbox" name="completed" id="completed_{{ work.id }}">
+          <label for="completed_{{ work.id }}">Mark as completed</label>
+          <button type="submit">Submit</button>
+      </form>
+      {% endif %}
    {% else %}
    <h2>Pending Works</h2>
    {% for work in works %}

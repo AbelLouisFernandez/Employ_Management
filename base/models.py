@@ -1,5 +1,5 @@
 from django.db import models
-
+from django.contrib.auth.models import User
 class Skill(models.Model):
     name = models.CharField(max_length=100)
 
@@ -10,6 +10,7 @@ class Employee(models.Model):
     availability = models.BooleanField(default=False)
     amount_of_work = models.IntegerField(default=0)
     skills = models.ManyToManyField(Skill)
+    email=models.EmailField(null=True)
 
     def __str__(self):
         return self.name
@@ -25,6 +26,9 @@ class Work(models.Model):
     def __str__(self):
         return self.name
 
-    
+class UserProfile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    is_present = models.BooleanField(default=False)
+
 
 
