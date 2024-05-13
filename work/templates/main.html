@@ -1,0 +1,29 @@
+{% load static %}
+<html>
+<head>
+  
+  <title>employee-management</title>
+  <link rel="stylesheet" type="text/css" media="screen" href="{% static 'styles/main.css' %}">
+
+</head>
+
+<body>
+  <div class="header-container">
+  <div>
+    <a href="{% url 'home' %}">
+      <img src="/static/images/employee-management.png" alt="logo"  class="logo">
+    </a>
+  </div>
+  <div>
+    <h3>Welcome to Employee Management website</h3>
+  </div>  
+  </div>
+  <hr>
+
+  {% include 'navbar.html' %}
+  {% block content %}
+
+  {% endblock %}
+</body>
+
+</html>

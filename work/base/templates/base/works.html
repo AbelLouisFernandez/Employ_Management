@@ -1,0 +1,21 @@
+{% extends 'main.html' %}
+{% block content %}
+   {% if page == 'view' %}
+   <h2>Works</h2>
+   {% for work in works %}
+   <div>
+       <h4><a href="{% url 'modifywork' work.pk %}">{{ work.name }}</a></h4>
+       <h4>Deadline Date:{{work.deadline}}</h4>
+   </div>
+   {% endfor %}
+
+   {% else %}
+   <h2>Pending Works</h2>
+   {% for work in works %}
+   <div>
+       <h4><a href="{% url 'assign_work' work.pk %}">{{ work.name }}</a></h4>
+       <h4>Deadline Date:{{work.deadline}}</h4>
+   </div>
+   {% endfor %}
+   {% endif %}
+{% endblock content %}

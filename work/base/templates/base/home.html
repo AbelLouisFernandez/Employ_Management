@@ -1,0 +1,23 @@
+{% extends 'main.html' %}
+{% block content %}
+    <h1>Employee List</h1>
+    <h3><a href="{% url 'avaliable' %}">avaliable employees</a></h3>
+    <h3><a href="{% url 'addwork' %}">new work</a></h3>
+    <h3><a href="{% url 'viewwork' %}">modify work</a></h3>
+    <h3><a href="{% url 'assignwork' %}">Assign work</a></h3>
+    {% for employee in employees %}
+    <h2>{{ employee.name }}</h2>
+    {% if employee.availability == True %}
+    <p>Currently Avaliable</p>
+    {% else %}
+    <p>Not avaliable</p>
+    {% endif %}
+    <p>Amount of Work: {{ employee.amount_of_work }}</p>
+    <p>Skills:</p>
+    <ul>
+        {% for skill in employee.skills.all %}
+            <li>{{ skill.name }}</li>
+        {% endfor %}
+    </ul>
+{% endfor %}
+{% endblock content %}
