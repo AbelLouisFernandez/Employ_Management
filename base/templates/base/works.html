@@ -24,6 +24,10 @@
           <input type="hidden" name="work_id" value="{{ work.id }}">
           <input type="checkbox" name="completed" id="completed_{{ work.id }}">
           <label for="completed_{{ work.id }}">Mark as completed</label>
+          <br>
+          <label for="task_link">Link to completed task:</label>
+          <input type="text" name="task_link" id="task_link">
+          <br>
           <button type="submit">Submit</button>
       </form>
       {% endif %}

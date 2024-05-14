@@ -8,6 +8,9 @@ from django.contrib.auth import authenticate, login, logout
 from django.core.mail import send_mail
 from django.db import models
 from django.http import HttpResponse
+from dotenv import load_dotenv
+import os
+load_dotenv()
 # Create your views here.
 def home(request):
     return render(request,'base/home.html')
@@ -40,20 +43,28 @@ def mark_work_completed(request):
             work.completed = True
             work.save()
             
+            task_link = request.POST.get('task_link')
+            work.task_link = task_link
+            
+            work.save()
+            print(os.environ.get('EMAIL_HOST_USER'))
             # Send email
             send_mail(
                 'Work Completed',
-                'The work has been marked as completed.',
+                f'The work has been marked as completed. Task link: {task_link}',
                 work.employee.email,
-                ['abellouisfernandez@gmail.com'],
+                [os.environ.get('EMAIL_HOST_USER')],
                 fail_silently=False,
             )
             
-            return HttpResponse('Work marked as completed and email sent successfully.')
+            messages.success(request, 'Work marked as completed and email sent successfully.')
+            return redirect('home')
         else:
-            return HttpResponse('Checkbox for completion not checked.')
+            messages.warning(request, 'Checkbox for completion not checked.')
+            return redirect('home')  
     else:
-        return HttpResponse('Invalid request method.')
+        messages.error(request, 'Invalid request method.')
+        return redirect('home')  
     
 
 def loginUser(request):
@@ -129,7 +140,7 @@ def assign_work(request,work_id):
                             send_mail(
                             'New Task Assigned',
                             f'{work.name} has been assigned to you. Click here to view the details: {page_url}',
-                            'abellouisfernandez@gmail.com',
+                            os.environ.get('EMAIL_HOST_USER'),
                             [selected_employee.email],
                             fail_silently=False,
                         )
